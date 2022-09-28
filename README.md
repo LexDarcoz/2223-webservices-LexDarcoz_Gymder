@@ -2,9 +2,9 @@
 
 > Schrap hierboven wat niet past
 
-- Student: VOORNAAM NAAM
-- Studentennummer: xxxxxxxxx
-- E-mailadres: voornaam.naam@student.hogent.be
+- Student: Alexander Schatteman
+- Studentennummer: 2021182201
+- E-mailadres: Alexander.schatteman@student.hogent.be
 
 ## Vereisten
 
