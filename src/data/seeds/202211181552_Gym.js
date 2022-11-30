@@ -11,13 +11,14 @@ module.exports = {
       {
         id: 2,
         name: "First Class Gym",
-        rating: 3.6,
+        rating: 4.0,
+        contact: "Michael guy",
         description: "lorem",
       },
       {
         id: 3,
         name: "Basic Fit",
-        rating: 3.6,
+        rating: 3.7,
         contact: "Michael guy",
         description: "lorem",
       },

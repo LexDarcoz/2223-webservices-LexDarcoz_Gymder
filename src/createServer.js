@@ -1,3 +1,4 @@
+const emoji = require("node-emoji");
 const Koa = require("koa");
 const config = require("config");
 const koaCors = require("@koa/cors");
@@ -42,14 +43,10 @@ module.exports = async function createServer() {
     })
   );
 
-  const logger = getLogger();
-
   app.use(bodyParser());
 
   app.use(async (ctx, next) => {
-    const logger = getLogger();
     logger.info(`${emoji.get("fast_forward")} ${ctx.method} ${ctx.url}`);
-
     const getStatusEmoji = () => {
       if (ctx.status >= 500) return emoji.get("skull");
       if (ctx.status >= 400) return emoji.get("x");
@@ -67,7 +64,7 @@ module.exports = async function createServer() {
         error,
       });
 
-      throw error;
+      throw error; // heel belangrijk => anders error -> nooit afgehandeld
     }
   });
   app.use(async (ctx, next) => {
@@ -97,17 +94,11 @@ module.exports = async function createServer() {
       if (error instanceof ServiceError) {
         if (error.isNotFound) {
           statusCode = 404;
-        }
-
-        if (error.isValidationFailed) {
+        } else if (error.isValidationFailed) {
           statusCode = 400;
-        }
-
-        if (error.isUnauthorized) {
+        } else if (error.isUnauthorized) {
           statusCode = 401;
-        }
-
-        if (error.isForbidden) {
+        } else if (error.isForbidden) {
           statusCode = 403;
         }
       }
@@ -116,6 +107,7 @@ module.exports = async function createServer() {
       ctx.body = errorBody;
     }
   });
+
   installRest(app);
 
   return {
