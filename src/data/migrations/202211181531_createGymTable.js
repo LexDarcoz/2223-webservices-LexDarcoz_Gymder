@@ -5,9 +5,9 @@ module.exports = {
 
       table.string("name", 256).notNullable();
 
-      table.string("email-Adres", 256);
+      table.string("emailaddress", 256);
 
-      table.string("contact", 256).notNullable();
+      table.string("owner", 256).notNullable();
 
       table.string("description", 256);
 

@@ -1,20 +1,20 @@
-import tables from "./data"
+import { tables } from "../index.js";
 
 module.exports = {
   up: async (knex) => {
-    await knex.schema.createTable("gymRating", (table) => {
+    await knex.schema.createTable("GymRating", (table) => {
       table.increments("id");
+
       table.integer("gymId").unsigned().notNullable();
       table
-        .foreign("gymId", "fk_gymRating_Gym")
-        .references(`${tables.}.id`)
+        .foreign("gymId", "fk_GymRating_Gym")
+        .references(`${tables.gym}.id`)
         .onDelete("CASCADE");
 
       table.integer("userId").unsigned().notNullable();
-
       table
-        .foreign("userId", "fk_gymRating_User")
-        .references(`${tables.place}.id`)
+        .foreign("userId", "fk_GymRating_User")
+        .references(`${tables.user}.id`)
         .onDelete("CASCADE");
 
       table.integer("rating");

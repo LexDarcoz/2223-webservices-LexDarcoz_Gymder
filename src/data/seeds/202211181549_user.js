@@ -1,6 +1,6 @@
 module.exports = {
   seed: async (knex) => {
-    await knex("User").insert([
+    await knex(tables.user).insert([
       {
         id: 1,
         name: "Admin",
@@ -8,8 +8,8 @@ module.exports = {
       },
       {
         id: 2,
-        name: "Laurens De Maeyer",
-        password: "Poesjes",
+        name: "Joris De Maeyer",
+        password: "Anaal123",
       },
       {
         id: 3,

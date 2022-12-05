@@ -3,5 +3,6 @@ module.exports = {
     // first delete all entries in every table
     await knex("Gym").delete();
     await knex("User").delete();
+    await knex("GymRating").delete();
   },
 };

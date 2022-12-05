@@ -1,25 +1,25 @@
 module.exports = {
   seed: async (knex) => {
-    await knex("Gym").insert([
+    await knex(tables.gym).insert([
       {
         id: 1,
         name: "Stamina Opwijk",
         rating: 5,
-        contact: "Michael guy",
+        owner: "Michael guy",
         description: "lorem",
       },
       {
         id: 2,
         name: "First Class Gym",
         rating: 4.0,
-        contact: "Michael guy",
+        owner: "Michael guy",
         description: "lorem",
       },
       {
         id: 3,
         name: "Basic Fit",
         rating: 3.7,
-        contact: "Michael guy",
+        owner: "Michael guy",
         description: "lorem",
       },
     ]);

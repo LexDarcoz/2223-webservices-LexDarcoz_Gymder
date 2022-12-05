@@ -145,9 +145,9 @@ function getKnex() {
 }
 
 const tables = {
-  gym: "gym",
-  user: "user",
-  user: "gymRating",
+  gym: "Gym",
+  user: "User",
+  gymRating: "GymRating",
 };
 
 module.exports = {

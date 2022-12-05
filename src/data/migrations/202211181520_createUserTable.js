@@ -5,13 +5,7 @@ module.exports = {
 
       table.string("name", 256).notNullable();
 
-      table.string("email-adres", 256).notNullable();
-
-      table.string("password", 256).notNullable();
-
-      table.integer("level", 256).notNullable();
-
-      table.string("salt", 128).notNullable();
+      table.string("emailaddress", 256).notNullable();
     });
   },
   down: (knex) => {

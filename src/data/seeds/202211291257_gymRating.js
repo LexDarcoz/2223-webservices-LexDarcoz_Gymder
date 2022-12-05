@@ -1,9 +1,12 @@
+const { tables } = require("..");
+
 module.exports = {
   seed: async (knex) => {
-    await knex("Gym").insert([
+    await knex(tables.gymRating).insert([
       {
-        userId: "yes",
-        gymId: "yes",
+        userId: 1,
+        gymId: 1,
+        rating: 3,
       },
     ]);
   },
