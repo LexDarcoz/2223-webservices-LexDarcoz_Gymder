@@ -1,7 +1,6 @@
 const Joi = require("joi");
 const Router = require("@koa/router");
 
-const { hasPermission, permissions } = require("../core/auth");
 const userService = require("../service/user");
 
 const validate = require("./_validation");
@@ -52,30 +51,30 @@ deleteUserById.validationScheme = {
  */
 module.exports = function installUsersRoutes(app) {
   const router = new Router({
-    prefix: "/users",
+    prefix: "/user",
   });
 
   router.get(
     "/",
-    hasPermission(permissions.read),
+
     validate(getAllUsers.validationScheme),
     getAllUsers
   );
   router.get(
     "/:id",
-    hasPermission(permissions.read),
+
     validate(getUserById.validationScheme),
     getUserById
   );
   router.put(
     "/:id",
-    hasPermission(permissions.write),
+
     validate(updateUserById.validationScheme),
     updateUserById
   );
   router.delete(
     "/:id",
-    hasPermission(permissions.write),
+
     validate(deleteUserById.validationScheme),
     deleteUserById
   );

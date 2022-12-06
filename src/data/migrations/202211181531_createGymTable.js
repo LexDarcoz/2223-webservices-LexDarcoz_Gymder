@@ -1,6 +1,7 @@
+const { tables } = require("..");
 module.exports = {
   up: async (knex) => {
-    await knex.schema.createTable("Gym", (table) => {
+    await knex.schema.createTable("gym", (table) => {
       table.increments("id");
 
       table.string("name", 256).notNullable();
@@ -17,6 +18,6 @@ module.exports = {
     });
   },
   down: (knex) => {
-    return knex.schema.dropTableIfExists("Gym");
+    return knex.schema.dropTableIfExists("gym");
   },
 };

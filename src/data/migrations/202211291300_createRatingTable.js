@@ -1,8 +1,7 @@
-import { tables } from "../index.js";
-
+const { tables } = require("..");
 module.exports = {
   up: async (knex) => {
-    await knex.schema.createTable("GymRating", (table) => {
+    await knex.schema.createTable("gymRating", (table) => {
       table.increments("id");
 
       table.integer("gymId").unsigned().notNullable();

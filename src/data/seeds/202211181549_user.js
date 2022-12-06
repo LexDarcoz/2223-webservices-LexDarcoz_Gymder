@@ -1,20 +1,21 @@
+const { tables } = require("..");
 module.exports = {
   seed: async (knex) => {
     await knex(tables.user).insert([
       {
         id: 1,
         name: "Admin",
-        password: "Test123",
+        emailaddress: "AdminMan@gmail.com",
       },
       {
         id: 2,
         name: "Joris De Maeyer",
-        password: "Anaal123",
+        emailaddress: "AdminMan@gmail.com",
       },
       {
         id: 3,
         name: "Yes",
-        password: "Yes123",
+        emailaddress: "AdminMan@gmail.com",
       },
     ]);
   },

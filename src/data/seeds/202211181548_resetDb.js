@@ -1,8 +1,8 @@
 module.exports = {
   seed: async (knex) => {
     // first delete all entries in every table
-    await knex("Gym").delete();
-    await knex("User").delete();
-    await knex("GymRating").delete();
+    await knex("gym").delete();
+    await knex("user").delete();
+    await knex("gymRating").delete();
   },
 };

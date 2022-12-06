@@ -1,4 +1,3 @@
-const emoji = require("node-emoji");
 const Koa = require("koa");
 const config = require("config");
 const koaCors = require("@koa/cors");
@@ -7,7 +6,7 @@ const emoji = require("node-emoji");
 const { serializeError } = require("serialize-error");
 
 const { initializeLogger, getLogger } = require("./core/logging");
-const ServiceError = require("./core/serviceErrors");
+const ServiceError = require("./core/serviceError");
 const { initializeData, shutdownData } = require("./data");
 const installRest = require("./rest");
 
@@ -21,7 +20,9 @@ module.exports = async function createServer() {
   initializeLogger({
     level: LOG_LEVEL,
     disabled: LOG_DISABLED,
-    defaultMeta: { NODE_ENV },
+    defaultMeta: {
+      NODE_ENV,
+    },
   });
 
   await initializeData();
@@ -43,10 +44,14 @@ module.exports = async function createServer() {
     })
   );
 
+  const logger = getLogger();
+
   app.use(bodyParser());
 
   app.use(async (ctx, next) => {
+    const logger = getLogger();
     logger.info(`${emoji.get("fast_forward")} ${ctx.method} ${ctx.url}`);
+
     const getStatusEmoji = () => {
       if (ctx.status >= 500) return emoji.get("skull");
       if (ctx.status >= 400) return emoji.get("x");
@@ -64,9 +69,10 @@ module.exports = async function createServer() {
         error,
       });
 
-      throw error; // heel belangrijk => anders error -> nooit afgehandeld
+      throw error;
     }
   });
+
   app.use(async (ctx, next) => {
     try {
       await next();
@@ -76,6 +82,7 @@ module.exports = async function createServer() {
           code: "NOT_FOUND",
           message: `Unknown resource: ${ctx.url}`,
         };
+        ctx.status = 404;
       }
     } catch (error) {
       const logger = getLogger();
@@ -94,11 +101,17 @@ module.exports = async function createServer() {
       if (error instanceof ServiceError) {
         if (error.isNotFound) {
           statusCode = 404;
-        } else if (error.isValidationFailed) {
+        }
+
+        if (error.isValidationFailed) {
           statusCode = 400;
-        } else if (error.isUnauthorized) {
+        }
+
+        if (error.isUnauthorized) {
           statusCode = 401;
-        } else if (error.isForbidden) {
+        }
+
+        if (error.isForbidden) {
           statusCode = 403;
         }
       }
@@ -117,7 +130,7 @@ module.exports = async function createServer() {
 
     start() {
       return new Promise((resolve) => {
-        const port = process.env.PORT || 9000;
+        const port = 9000;
         app.listen(port);
         logger.info(`🚀 Server listening on http://localhost:${port}`);
         resolve();

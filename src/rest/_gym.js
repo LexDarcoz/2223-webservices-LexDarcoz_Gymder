@@ -1,39 +1,38 @@
 const Joi = require("joi");
 const Router = require("@koa/router");
 
-const { hasPermission, permissions } = require("../core/auth");
-const placeService = require("../service/place");
+const gymService = require("../service/gym");
 
 const validate = require("./_validation.js");
 
-const getAllPlaces = async (ctx) => {
-  ctx.body = await placeService.getAll();
+const getAllGyms = async (ctx) => {
+  ctx.body = await gymService.getAll();
 };
-getAllPlaces.validationScheme = null;
+getAllGyms.validationScheme = null;
 
-const createPlace = async (ctx) => {
-  const newPlace = await placeService.create(ctx.request.body);
-  ctx.body = newPlace;
+const createGym = async (ctx) => {
+  const newGym = await gymService.create(ctx.request.body);
+  ctx.body = newGym;
   ctx.status = 201;
 };
-createPlace.validationScheme = {
+createGym.validationScheme = {
   body: {
     name: Joi.string().max(255),
     rating: Joi.number().min(1).max(5).integer().optional(),
   },
 };
 
-const getPlaceById = async (ctx) => {
-  ctx.body = await placeService.getById(Number(ctx.params.id));
+const getGymById = async (ctx) => {
+  ctx.body = await gymService.getById(Number(ctx.params.id));
 };
-getPlaceById.validationScheme = {
+getGymById.validationScheme = {
   params: {
     id: Joi.number().integer().positive(),
   },
 };
 
 const updatePlace = async (ctx) => {
-  ctx.body = await placeService.updateById(ctx.params.id, ctx.request.body);
+  ctx.body = await gymService.updateById(ctx.params.id, ctx.request.body);
 };
 updatePlace.validationScheme = {
   params: {
@@ -45,11 +44,11 @@ updatePlace.validationScheme = {
   },
 };
 
-const deletePlace = async (ctx) => {
-  await placeService.deleteById(ctx.params.id);
+const deleteGym = async (ctx) => {
+  await gymService.deleteById(ctx.params.id);
   ctx.status = 204;
 };
-deletePlace.validationScheme = {
+deleteGym.validationScheme = {
   params: {
     id: Joi.number().integer().positive(),
   },
@@ -62,38 +61,38 @@ deletePlace.validationScheme = {
  */
 module.exports = (app) => {
   const router = new Router({
-    prefix: "/places",
+    prefix: "/gym",
   });
 
   router.get(
     "/",
-    hasPermission(permissions.read),
-    validate(getAllPlaces.validationScheme),
-    getAllPlaces
+
+    validate(getAllGyms.validationScheme),
+    getAllGyms
   );
   router.post(
     "/",
-    hasPermission(permissions.write),
-    validate(createPlace.validationScheme),
-    createPlace
+
+    validate(createGym.validationScheme),
+    createGym
   );
   router.get(
     "/:id",
-    hasPermission(permissions.read),
-    validate(getPlaceById.validationScheme),
-    getPlaceById
+
+    validate(getGymById.validationScheme),
+    getGymById
   );
   router.put(
     "/:id",
-    hasPermission(permissions.write),
+
     validate(updatePlace.validationScheme),
     updatePlace
   );
   router.delete(
     "/:id",
-    hasPermission(permissions.write),
-    validate(deletePlace.validationScheme),
-    deletePlace
+
+    validate(deleteGym.validationScheme),
+    deleteGym
   );
 
   app.use(router.routes()).use(router.allowedMethods());
