@@ -35,7 +35,7 @@ const getById = (id) => {
  */
 const create = async ({ name, rating }) => {
   const newGym = { name, rating };
-  debugLog("Creating new place", newGym);
+  debugLog("Creating new gym", newGym);
   const id = await gymRepository.create(newGym);
   return getById(id);
 };

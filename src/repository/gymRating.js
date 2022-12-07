@@ -1,3 +1,4 @@
+const { hasPermission, permissions } = require("../core/auth");
 const { tables, getKnex } = require("../data");
 const { getLogger } = require("../core/logging");
 
@@ -45,11 +46,10 @@ const findByAuth0Id = (auth0id) => {
  *
  * @returns {Promise<number>} - Id of the created user.
  */
-const create = async ({ name, auth0id }) => {
+const create = async ({ name }) => {
   try {
-    const [id] = await getKnex()(tables.user).insert({
+    const [id] = await getKnex()(tables.gymRating).insert({
       name,
-      auth0id,
     });
     return id;
   } catch (error) {

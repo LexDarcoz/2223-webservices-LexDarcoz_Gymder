@@ -8,4 +8,10 @@ module.exports = {
     password: "DATABASE_PASSWORD",
     name: "DATABASE_NAME",
   },
+  auth: {
+    jwksUri: "AUTH_JWKS_URI",
+    audience: "AUTH_AUDIENCE",
+    issuer: "AUTH_ISSUER",
+    userInfo: "AUTH_USER_INFO",
+  },
 };

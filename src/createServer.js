@@ -9,6 +9,7 @@ const { initializeLogger, getLogger } = require("./core/logging");
 const ServiceError = require("./core/serviceError");
 const { initializeData, shutdownData } = require("./data");
 const installRest = require("./rest");
+const { checkJwtToken } = require("./core/auth");
 
 const NODE_ENV = config.get("env");
 const CORS_ORIGINS = config.get("cors.origins");
@@ -27,6 +28,7 @@ module.exports = async function createServer() {
 
   await initializeData();
 
+  const logger = getLogger();
   const app = new Koa();
 
   // Add CORS
@@ -44,7 +46,7 @@ module.exports = async function createServer() {
     })
   );
 
-  const logger = getLogger();
+  app.use(checkJwtToken());
 
   app.use(bodyParser());
 
@@ -116,6 +118,15 @@ module.exports = async function createServer() {
         }
       }
 
+      if (ctx.state.jwtOriginalError) {
+        statusCode = 401;
+        errorBody.code = "UNAUTHORIZED";
+        errorBody.message = ctx.state.jwtOriginalError.message;
+        errorBody.details.jwtOriginalError = serializeError(
+          ctx.state.jwtOriginalError
+        );
+      }
+
       ctx.status = statusCode;
       ctx.body = errorBody;
     }
@@ -130,7 +141,7 @@ module.exports = async function createServer() {
 
     start() {
       return new Promise((resolve) => {
-        const port = 9000;
+        const port = config.get("port");
         app.listen(port);
         logger.info(`🚀 Server listening on http://localhost:${port}`);
         resolve();

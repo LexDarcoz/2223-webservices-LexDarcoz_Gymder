@@ -16,21 +16,35 @@ getAllgymRatings.validationScheme = {
 };
 
 const createRating = async (ctx) => {
+  let user_Id = 0;
+  try {
+    const user = await userService.getByAuth0Id(ctx.state.user.sub); // 👈 1
+    user_Id = user.id;
+  } catch (err) {
+    await addUserInfo(ctx); // 👈 2
+    user_Id = await userService.register({
+      // 👈 3
+      auth0id: ctx.state.user.sub,
+      name: ctx.state.user.name,
+    });
+  }
   const newRating = await RatingService.create({
     ...ctx.request.body,
-    placeId: Number(ctx.request.body.placeId),
-    date: new Date(ctx.request.body.date),
+    gymId: Number(ctx.request.body.gymId),
+    userId: user_Id,
+    rating: Number(ctx.request.body.rating),
   });
   ctx.body = newRating;
   ctx.status = 201;
-};
-createRating.validationScheme = {
-  body: {
-    amount: Joi.number().invalid(0),
-    date: Joi.date().iso().less("now"),
-    placeId: Joi.number().integer().positive(),
-    user: Joi.string(),
-  },
+
+  createRating.validationScheme = {
+    body: {
+      amount: Joi.number().invalid(0),
+      date: Joi.date().iso().less("now"),
+      placeId: Joi.number().integer().positive(),
+      user: Joi.string(),
+    },
+  };
 };
 
 const getgymRatingById = async (ctx) => {
