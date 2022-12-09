@@ -6,13 +6,13 @@ module.exports = {
 
       table.string("name", 256).notNullable();
 
-      table.string("emailaddress", 256);
+      table.string("emailAddress", 256);
 
       table.string("owner", 256).notNullable();
 
       table.string("description", 256);
 
-      table.string("image", 256);
+      // table.string("image", 256);
 
       table.double("rating");
     });

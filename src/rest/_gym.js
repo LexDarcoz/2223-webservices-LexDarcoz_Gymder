@@ -18,7 +18,9 @@ const createGym = async (ctx) => {
 createGym.validationScheme = {
   body: {
     name: Joi.string().max(255),
-    rating: Joi.number().min(1).max(5).integer().optional(),
+    emailAddress: Joi.string().max(255),
+    owner: Joi.string().max(255),
+    description: Joi.string().max(255),
   },
 };
 

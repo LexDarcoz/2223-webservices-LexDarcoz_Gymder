@@ -33,8 +33,8 @@ const getById = (id) => {
  * @param {string} gym.name - Name of the place.
  * @param {number} [gym.rating] - Rating of the place (between 1 and 5).
  */
-const create = async ({ name, rating }) => {
-  const newGym = { name, rating };
+const create = async ({ name, description, owner, emailAddress }) => {
+  const newGym = { name, description, owner, emailAddress };
   debugLog("Creating new gym", newGym);
   const id = await gymRepository.create(newGym);
   return getById(id);
@@ -48,8 +48,8 @@ const create = async ({ name, rating }) => {
  * @param {string} [place.name] - Name of the place.
  * @param {number} [place.rating] - Rating of the place (between 1 and 5).
  */
-const updateById = async (id, { name, rating }) => {
-  const updatedGym = { name, rating };
+const updateById = async (id, { name, description, owner, emailAddress }) => {
+  const updatedGym = { name, description, owner, emailAddress };
   debugLog(`Updating gym with id ${id}`, updatedGym);
   await gymRepository.updateById(id, updatedGym);
   return getById(id);

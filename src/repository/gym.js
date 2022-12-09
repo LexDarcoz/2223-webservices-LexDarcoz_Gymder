@@ -2,7 +2,7 @@ const { tables, getKnex } = require("../data/index");
 const { getLogger } = require("../core/logging");
 
 const findAll = async () => {
-  return await getKnex()(tables.gym).select().orderBy("rating", "ASC");
+  return await getKnex()(tables.gym).select().orderBy("rating", "DESC");
 };
 const getRating = async (gymId) => {
   try {
@@ -14,12 +14,13 @@ const getRating = async (gymId) => {
   }
 };
 
-const create = async ({ name, description, contact }) => {
+const create = async ({ name, description, owner, emailAddress }) => {
   try {
     const [id] = await getKnex()(tables.gym).insert({
       name,
-      contact,
+      owner,
       description,
+      emailAddress,
       rating: 0,
     });
 
