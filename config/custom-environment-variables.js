@@ -13,5 +13,8 @@ module.exports = {
     audience: "AUTH_AUDIENCE",
     issuer: "AUTH_ISSUER",
     userInfo: "AUTH_USER_INFO",
+    // tokenUrl: "AUTH_TOKEN_URL",
+    // clientId: "AUTH_CLIENT_ID",
+    // clientSecret: "AUTH_CLIENT_SECRET",
   },
 };
