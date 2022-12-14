@@ -19,7 +19,7 @@ module.exports = {
       {
         id: 3,
         name: "Basic Fit",
-        rating: 3.7,
+        rating: 3,
         owner: "Michael guy",
         description: "lorem",
       },

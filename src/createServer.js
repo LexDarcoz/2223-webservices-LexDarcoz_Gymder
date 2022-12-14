@@ -4,7 +4,6 @@ const koaCors = require("@koa/cors");
 const bodyParser = require("koa-bodyparser");
 const emoji = require("node-emoji");
 const { serializeError } = require("serialize-error");
-
 const { initializeLogger, getLogger } = require("./core/logging");
 const ServiceError = require("./core/serviceError");
 const { initializeData, shutdownData } = require("./data");
