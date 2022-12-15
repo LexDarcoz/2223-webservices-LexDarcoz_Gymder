@@ -2,16 +2,16 @@ module.exports = {
   port: 9000,
   log: {
     level: "silly",
-    disabled: false,
+    disabled: true,
   },
   cors: {
-    origins: ["http://localhost:3000"],
+    origins: ["https://gymder.onrender.com/"],
     maxAge: 3 * 60 * 60,
   },
   database: {
     client: "mysql2",
-    host: "localhost",
-    port: 3306,
-    name: "budget",
+    host: "vichogent.be",
+    port: 40043,
+    name: "182201as",
   },
 };
