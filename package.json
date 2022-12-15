@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "UNLICENSED",
   "scripts": {
+    "start:prod": "node src/index.js",
     "start": "npx env-cmd nodemon",
     "test": "npx env-cmd -f .env.test jest",
     "test:coverage": "npx env-cmd -f .env.test jest --coverage",
