@@ -22,6 +22,5 @@ module.exports = (app) => {
   installHealthRouter(router);
 
   installUserRouter(router);
-  console.log("before rest");
   app.use(router.routes()).use(router.allowedMethods());
 };

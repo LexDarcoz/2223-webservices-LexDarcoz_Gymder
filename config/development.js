@@ -2,10 +2,10 @@ module.exports = {
   port: 9000,
   log: {
     level: "silly",
-    disabled: true,
+    disabled: false,
   },
   cors: {
-    origins: ["http://localhost:9000/api/gym"],
+    origins: ["http://localhost:9000/"],
     maxAge: 3 * 60 * 60,
   },
   database: {
