@@ -33,6 +33,8 @@ const getById = (id) => {
  * @param {string} gym.name - Name of the place.
  * @param {number} [gym.rating] - Rating of the place (between 1 and 5).
  */
+
+// , filename, filename
 const create = async ({ name, description, owner, emailAddress }) => {
   const newGym = { name, description, owner, emailAddress };
   debugLog("Creating new gym", newGym);

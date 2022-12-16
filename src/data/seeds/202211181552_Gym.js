@@ -7,6 +7,7 @@ module.exports = {
         name: "Stamina Opwijk",
         rating: 5,
         owner: "Kambiz",
+        // image: "StaminaFitness",
         description: "Address: Stationsstraat 12, bus 1 te, 1745 Opwijk",
       },
       {
