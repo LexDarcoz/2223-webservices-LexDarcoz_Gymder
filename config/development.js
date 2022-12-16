@@ -5,7 +5,7 @@ module.exports = {
     disabled: true,
   },
   cors: {
-    origins: ["https://gymder.onrender.com/"],
+    origins: ["http://localhost:9000/api/gym"],
     maxAge: 3 * 60 * 60,
   },
   database: {
