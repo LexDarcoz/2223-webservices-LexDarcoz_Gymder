@@ -143,6 +143,7 @@ module.exports = async function createServer() {
         const port = config.get("port");
         app.listen(port);
         logger.info(`🚀 Server listening on http://localhost:${port}`);
+        console.log(CORS_ORIGINS);
         resolve();
       });
     },
