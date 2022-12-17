@@ -12,7 +12,7 @@ module.exports = {
 
       table.string("description", 256);
 
-      // table.string("image", 256);
+      table.string("image", 256);
 
       table.double("rating");
     });

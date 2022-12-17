@@ -34,9 +34,8 @@ const getById = (id) => {
  * @param {number} [gym.rating] - Rating of the place (between 1 and 5).
  */
 
-// , filename, filename
-const create = async ({ name, description, owner, emailAddress }) => {
-  const newGym = { name, description, owner, emailAddress };
+const create = async ({ name, description, owner, emailAddress }, filename) => {
+  const newGym = { name, description, owner, emailAddress, filename };
   debugLog("Creating new gym", newGym);
   const id = await gymRepository.create(newGym);
   return getById(id);

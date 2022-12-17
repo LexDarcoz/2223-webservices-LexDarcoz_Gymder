@@ -14,13 +14,14 @@ const getRating = async (gymId) => {
   }
 };
 
-const create = async ({ name, description, owner, emailAddress }) => {
+const create = async ({ name, description, owner, emailAddress, filename }) => {
   try {
     const [id] = await getKnex()(tables.gym).insert({
       name,
       owner,
       description,
       emailAddress,
+      image: filename,
       rating: 0,
     });
 

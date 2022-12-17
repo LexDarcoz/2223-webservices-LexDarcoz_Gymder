@@ -7,7 +7,7 @@ module.exports = {
         name: "Stamina Opwijk",
         rating: 5,
         owner: "Kambiz",
-        // image: "StaminaFitness",
+        image: "StaminaLogo.jpg",
         description: "Address: Stationsstraat 12, bus 1 te, 1745 Opwijk",
       },
       {
@@ -15,11 +15,12 @@ module.exports = {
         name: "First Class Gym",
         rating: 4.0,
         owner: "Michael guy",
+        image: "FirstClassGymLogo.png",
         description: "Address: Zwijnaardsesteenweg 282, 9000 Gent",
       },
       {
         id: 3,
-        name: "Basic-Fit Gent Normaalschoolstraat",
+        name: "Basic-Fit Gent",
         rating: 3,
         owner: "Johnny",
         description: "Address: Normaalschoolstraat 42, 9000 Gent",
@@ -29,6 +30,7 @@ module.exports = {
         name: "Physical Merchtem",
         rating: 4.6,
         owner: "John",
+        image: "PhysicalLogo.png",
         description: "Address: August de Boeckstraat 29, 1785 Merchtem",
       },
       {
