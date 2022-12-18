@@ -13,13 +13,16 @@ const debugLog = (message, meta = {}) => {
  * @param {object} user - The user's data.
  * @param {string} user.name - The user's name.
  */
-const register = ({ name, auth0id }) => {
+const register = ({ fullName, auth0id, bio, phoneNumber, emailAddress }) => {
   debugLog("Creating a new user", {
     name,
   });
   return userRepository.create({
-    name,
+    fullName,
     auth0id,
+    bio,
+    phoneNumber,
+    emailAddress,
   });
 };
 

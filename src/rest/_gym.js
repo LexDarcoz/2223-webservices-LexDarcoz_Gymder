@@ -37,6 +37,18 @@ const getAllGyms = async (ctx) => {
 getAllGyms.validationScheme = null;
 
 const createGym = async (ctx) => {
+  // let userId = 0;
+  // try {
+  //   const user = await userService.getByAuth0Id(ctx.state.user.sub);
+  //   userId = user.id;
+  // } catch (err) {
+  //   await addUserInfo(ctx);
+  //   userId = await userService.register({
+  //     auth0id: ctx.state.user.sub,
+  //     name: ctx.state.user.name,
+  //   });
+  // }
+
   const filename = ctx.request.file ? ctx.request.file.filename : null;
   const newGym = await gymService.create({ ...ctx.request.body }, filename);
   ctx.body = newGym;

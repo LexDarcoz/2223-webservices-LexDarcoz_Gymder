@@ -3,7 +3,7 @@ const jwt = require("koa-jwt");
 const axios = require("axios");
 const config = require("config");
 
-const AUTH_USER_INFO = config.get("auth.userInfo");
+const AUTH_USER_INFO = process.env.AUTH_USER_INFO;
 
 const { getLogger } = require("./logging");
 
@@ -11,7 +11,7 @@ function getJwtSecret() {
   const logger = getLogger();
   try {
     let secretFunction = jwksrsa.koaJwtSecret({
-      jwksUri: config.get("auth.jwksUri"),
+      jwksUri: process.env.AUTH_JWKS_URI,
       cache: true,
       cacheMaxEntries: 5,
     });
@@ -30,8 +30,8 @@ function checkJwtToken() {
     let secretFunction = getJwtSecret();
     return jwt({
       secret: secretFunction,
-      audience: config.get("auth.audience"),
-      issuer: config.get("auth.issuer"),
+      audience: process.env.AUTH_AUDIENCE,
+      issuer: process.env.AUTH_ISSUER,
       algorithms: ["RS256"],
       passthrough: true, // ctx.state.user will be undefined if no valid JWT is provided
     });

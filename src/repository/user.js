@@ -34,14 +34,20 @@ const create = async ({ name, auth0id }) => {
   }
 };
 
-const updateById = async (id, { name, auth0id }) => {
+const updateById = async (
+  id,
+  { name, auth0id, emailAddress, bio, phoneNumber }
+) => {
   try {
     await getKnex()(tables.user)
       .update({
         name,
         auth0id,
+        emailAddress,
+        bio,
+        phoneNumber,
       })
-      .where("id", id);
+      .where("auth0id", id);
     return id;
   } catch (error) {
     const logger = getLogger();
