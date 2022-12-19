@@ -11,7 +11,7 @@ const debugLog = (message, meta = {}) => {
  * Get all transactions.
  */
 const getAll = async () => {
-  debugLog("Fetching all transactions");
+  debugLog("Fetching all GymRatings");
   const items = await gymRatingRepository.findAll();
   const count = await gymRatingRepository.findCount();
   return {
@@ -26,11 +26,11 @@ const getAll = async () => {
  * @param {number} id - Id of the transaction to find.
  */
 const getById = async (id) => {
-  debugLog(`Fetching transaction with id ${id}`);
+  debugLog(`Fetching GymRating with id ${id}`);
   const transaction = await gymRatingRepository.findById(id);
 
   if (!transaction) {
-    throw ServiceError.notFound(`There is no transaction with id ${id}`, {
+    throw ServiceError.notFound(`There is no GymRating with id ${id}`, {
       id,
     });
   }
@@ -38,12 +38,13 @@ const getById = async (id) => {
   return transaction;
 };
 
-const create = async ({ amount, date, placeId, userId }) => {
-  debugLog("Creating new transaction", {
+const create = async ({ amount, date, placeId, userId, description }) => {
+  debugLog("Creating new GymRating", {
     amount,
     date,
     placeId,
     userId,
+    description,
   });
 
   const id = await gymRatingRepository.create({
@@ -51,16 +52,21 @@ const create = async ({ amount, date, placeId, userId }) => {
     date,
     placeId,
     userId,
+    description,
   });
   return getById(id);
 };
 
-const updateById = async (id, { amount, date, placeId, userId }) => {
+const updateById = async (
+  id,
+  { amount, date, placeId, userId, description }
+) => {
   debugLog(`Updating transaction with id ${id}`, {
     amount,
     date,
     placeId,
     userId,
+    description,
   });
 
   await gymRatingRepository.updateById(id, {
@@ -68,6 +74,7 @@ const updateById = async (id, { amount, date, placeId, userId }) => {
     date,
     placeId,
     userId,
+    description,
   });
   return getById(id);
 };
@@ -78,7 +85,7 @@ const updateById = async (id, { amount, date, placeId, userId }) => {
  * @param {number} id - Id of the transaction to delete.
  */
 const deleteById = async (id) => {
-  debugLog(`Deleting transaction with id ${id}`);
+  debugLog(`Deleting GymRating with id ${id}`);
   await gymRatingRepository.deleteById(id);
 };
 

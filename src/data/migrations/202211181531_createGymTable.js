@@ -3,7 +3,7 @@ module.exports = {
   up: async (knex) => {
     await knex.schema.createTable("gym", (table) => {
       table.increments("id");
-
+      table.double("rating");
       table.string("name", 256).notNullable();
 
       table.string("emailAddress", 256);
@@ -13,8 +13,6 @@ module.exports = {
       table.string("description", 256);
 
       table.string("image", 256);
-
-      table.double("rating");
     });
   },
   down: (knex) => {

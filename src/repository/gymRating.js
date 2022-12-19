@@ -5,18 +5,15 @@ const { getLogger } = require("../core/logging");
 /**
  * Get all users.
  */
-const findAll = (id) => {
-  return getKnex()(tables.gymRating)
-    .select()
-    .where("id", id)
-    .orderBy("name", "ASC");
+const findAll = () => {
+  return getKnex()(tables.gymRating).select().orderBy("rating", "ASC");
 };
 
 /**
  * Calculate the total number of user.
  */
 const findCount = async () => {
-  const [count] = await getKnex()(tables.user).count();
+  const [count] = await getKnex()(tables.gymRating).count();
   return count["count(*)"];
 };
 
@@ -30,26 +27,20 @@ const findById = (id) => {
 };
 
 /**
- * Find a user with the given auth0 id.
+ * Create a new gymRating with the given `name`.
  *
- * @param {string} auth0id - The id to search for.
- */
-const findByAuth0Id = (auth0id) => {
-  return getKnex()(tables.user).where("auth0id", auth0id).first();
-};
-
-/**
- * Create a new user with the given `name`.
- *
- * @param {object} user - User to create.
- * @param {string} user.name - Name of the user.
+ * @param {object} gym - User to create.
+ * @param {string} gymRating.id - Name of the user.
  *
  * @returns {Promise<number>} - Id of the created user.
  */
-const create = async ({ name }) => {
+const create = async ({ userId, gymId, rating, description }) => {
   try {
     const [id] = await getKnex()(tables.gymRating).insert({
-      name,
+      userId,
+      gymId,
+      rating,
+      description,
     });
     return id;
   } catch (error) {
@@ -62,7 +53,7 @@ const create = async ({ name }) => {
 };
 
 /**
- * Update a user with the given `id`.
+ * Update a gym with the given `id`.
  *
  * @param {number} id - Id of the user to update.
  * @param {object} user - User to save.
@@ -70,12 +61,14 @@ const create = async ({ name }) => {
  *
  * @returns {Promise<number>} - Id of the updated user.
  */
-const updateById = async (id, { name, auth0id }) => {
+const updateById = async (id, { userId, gymId, rating, description }) => {
   try {
     await getKnex()(tables.user)
       .update({
-        name,
-        auth0id,
+        userId,
+        gymId,
+        rating,
+        description,
       })
       .where("id", id);
     return id;
@@ -89,13 +82,15 @@ const updateById = async (id, { name, auth0id }) => {
 };
 
 /**
- * Update a user with the given `id`.
+ * Update a gym with the given `id`.
  *
  * @param {string} id - Id of the user to delete.
  */
 const deleteById = async (id) => {
   try {
-    const rowsAffected = await getKnex()(tables.user).delete().where("id", id);
+    const rowsAffected = await getKnex()(tables.gymRating)
+      .delete()
+      .where("id", id);
     return rowsAffected > 0;
   } catch (error) {
     const logger = getLogger();
@@ -110,7 +105,6 @@ module.exports = {
   findAll,
   findCount,
   findById,
-  findByAuth0Id,
   create,
   updateById,
   deleteById,

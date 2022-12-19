@@ -2,7 +2,7 @@ const { tables, getKnex } = require("../data");
 const { getLogger } = require("../core/logging");
 
 const findAll = () => {
-  return getKnex()(tables.user).select().orderBy("name", "ASC");
+  return getKnex()(tables.user).select().orderBy("fullName", "ASC");
 };
 
 const findCount = async () => {
@@ -18,11 +18,21 @@ const findByAuth0Id = (auth0id) => {
   return getKnex()(tables.user).where("auth0id", auth0id).first();
 };
 
-const create = async ({ name, auth0id }) => {
+const create = async ({
+  fullName,
+  auth0id,
+  emailAddress,
+  bio,
+  phoneNumber,
+}) => {
   try {
     const [id] = await getKnex()(tables.user).insert({
-      name,
+      fullName,
       auth0id,
+      emailAddress,
+      bio,
+      image,
+      phoneNumber,
     });
     return id;
   } catch (error) {
@@ -36,15 +46,16 @@ const create = async ({ name, auth0id }) => {
 
 const updateById = async (
   id,
-  { name, auth0id, emailAddress, bio, phoneNumber }
+  { fullName, auth0id, emailAddress, bio, phoneNumber }
 ) => {
   try {
     await getKnex()(tables.user)
       .update({
-        name,
+        fullName,
         auth0id,
         emailAddress,
         bio,
+        image,
         phoneNumber,
       })
       .where("auth0id", id);

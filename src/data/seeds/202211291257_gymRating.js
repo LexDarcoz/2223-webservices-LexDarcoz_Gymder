@@ -6,7 +6,8 @@ module.exports = {
       {
         userId: 1,
         gymId: 1,
-        rating: 3,
+        rating: 2,
+        description: "Did not have a good experience",
       },
     ]);
   },

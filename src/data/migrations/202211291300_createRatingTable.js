@@ -3,6 +3,8 @@ module.exports = {
   up: async (knex) => {
     await knex.schema.createTable("gymRating", (table) => {
       table.increments("id");
+      table.integer("rating");
+      table.string("description");
 
       table.integer("gymId").unsigned().notNullable();
       table
@@ -15,8 +17,6 @@ module.exports = {
         .foreign("userId", "fk_GymRating_User")
         .references(`${tables.user}.id`)
         .onDelete("CASCADE");
-
-      table.integer("rating");
     });
   },
   down: (knex) => {
