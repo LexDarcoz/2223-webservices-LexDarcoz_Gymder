@@ -17,9 +17,9 @@ const register = ({
   fullName,
   auth0id,
   bio,
+  image,
   phoneNumber,
   emailAddress,
-  image,
 }) => {
   debugLog("Creating a new user", {
     fullName,
@@ -95,12 +95,27 @@ const getByAuth0Id = async (auth0id) => {
  * @throws {ServiceError} One of:
  * - NOT_FOUND: No user with the given id could be found.
  */
-const updateById = (id, { name }) => {
-  debugLog(`Updating user with id ${id}`, {
-    name,
+const updateByAuthId = (
+  auth0id,
+  { fullName, phoneNumber, emailAddress, country, state, city, bio }
+) => {
+  debugLog(`Updating user with Authid ${auth0id}`, {
+    fullName,
+    phoneNumber,
+    emailAddress,
+    country,
+    state,
+    city,
+    bio,
   });
-  return userRepository.updateById(id, {
-    name,
+  return userRepository.updateByAuthId(auth0id, {
+    fullName,
+    phoneNumber,
+    emailAddress,
+    country,
+    state,
+    city,
+    bio,
   });
 };
 
@@ -128,6 +143,6 @@ module.exports = {
   getAll,
   getById,
   getByAuth0Id,
-  updateById,
+  updateByAuthId,
   deleteById,
 };

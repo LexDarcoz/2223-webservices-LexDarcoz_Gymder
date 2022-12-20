@@ -6,9 +6,6 @@ const debugLog = (message, meta = {}) => {
   this.logger.debug(message, meta);
 };
 
-/**
- * Get all places.
- */
 const getAll = async () => {
   debugLog("Fetching all places");
   const items = await gymRepository.findAll();
@@ -16,39 +13,21 @@ const getAll = async () => {
   return { items, count };
 };
 
-/**
- * Get the place with the given `id`.
- *
- * @param {string} id - Id of the place to get.
- */
 const getById = (id) => {
   debugLog(`Fetching place with id ${id}`);
   return gymRepository.findById(id);
 };
 
-/**
- * Create a new place.
- *
- * @param {object} gym - Place to create.
- * @param {string} gym.name - Name of the place.
- * @param {number} [gym.rating] - Rating of the place (between 1 and 5).
- */
-
-const create = async ({ name, description, owner, emailAddress }, filename) => {
-  const newGym = { name, description, owner, emailAddress, filename };
+const create = async (
+  { name, owner, emailAddress, description, address },
+  filename
+) => {
+  const newGym = { name, owner, emailAddress, description, address, filename };
   debugLog("Creating new gym", newGym);
   const id = await gymRepository.create(newGym);
   return getById(id);
 };
 
-/**
- * Update an existing place.
- *
- * @param {string} id - Id of the place to update.
- * @param {object} place - Place to save.
- * @param {string} [place.name] - Name of the place.
- * @param {number} [place.rating] - Rating of the place (between 1 and 5).
- */
 const updateById = async (id, { name, description, owner, emailAddress }) => {
   const updatedGym = { name, description, owner, emailAddress };
   debugLog(`Updating gym with id ${id}`, updatedGym);
@@ -56,11 +35,6 @@ const updateById = async (id, { name, description, owner, emailAddress }) => {
   return getById(id);
 };
 
-/**
- * Delete an existing place.
- *
- * @param {string} id - Id of the place to delete.
- */
 const deleteById = async (id) => {
   debugLog(`Deleting gym with id ${id}`);
   await gymRepository.deleteById(id);

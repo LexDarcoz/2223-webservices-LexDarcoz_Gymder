@@ -11,6 +11,16 @@ const getAllUsers = async (ctx) => {
 };
 getAllUsers.validationScheme = null;
 
+const getUserById = async (ctx) => {
+  ctx.body = await userService.getById(Number(ctx.params.id));
+};
+
+getUserById.validationScheme = {
+  params: {
+    id: Joi.number().integer().positive(),
+  },
+};
+
 const getUserByAuthId = async (ctx) => {
   let userId = 0;
   try {
@@ -20,7 +30,7 @@ const getUserByAuthId = async (ctx) => {
     await addUserInfo(ctx);
     userId = await userService.register({
       auth0id: ctx.state.user.sub,
-      name: ctx.state.user.name,
+      fullName: ctx.state.user.name,
     });
   }
 
@@ -39,12 +49,19 @@ const updateUserByAuthId = async (ctx) => {
     await addUserInfo(ctx);
     userId = await userService.register({
       auth0id: ctx.state.user.sub,
-      name: ctx.state.user.name,
+      fullName: ctx.state.user.name,
     });
   }
 
-  const user = await userService.updateById(ctx.state.user.sub);
-  ctx.body = user;
+  ctx.body = await userService.updateByAuthId(ctx.state.user.sub, {
+    fullName: ctx.request.body.fullName,
+    phoneNumber: ctx.request.body.phoneNumber,
+    emailAddress: ctx.request.body.emailAddress,
+    country: ctx.request.body.country,
+    state: ctx.request.body.state,
+    city: ctx.request.body.city,
+    bio: ctx.request.body.bio,
+  });
 };
 updateUserByAuthId.validationScheme = {};
 
@@ -58,11 +75,6 @@ deleteUserById.validationScheme = {
   },
 };
 
-/**
- * Install user routes in the given router.
- *
- * @param {Router} app - The parent router.
- */
 module.exports = function installUsersRoutes(app) {
   const router = new Router({
     prefix: "/user",
@@ -70,19 +82,25 @@ module.exports = function installUsersRoutes(app) {
 
   router.get(
     "/",
-
+    hasPermission(permissions.loggedIn),
     validate(getAllUsers.validationScheme),
     getAllUsers
   );
   router.get(
     "/current",
-
+    hasPermission(permissions.loggedIn),
     validate(getUserByAuthId.validationScheme),
     getUserByAuthId
   );
+  router.get(
+    "/:id",
+    hasPermission(permissions.loggedIn),
+    validate(getUserById.validationScheme),
+    getUserById
+  );
   router.put(
     "/save",
-    hasPermission(permissions.write),
+    hasPermission(permissions.loggedIn),
     validate(updateUserByAuthId.validationScheme),
     updateUserByAuthId
   );

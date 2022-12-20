@@ -23,6 +23,7 @@ const create = async ({
   auth0id,
   emailAddress,
   bio,
+  image,
   phoneNumber,
 }) => {
   try {
@@ -44,22 +45,23 @@ const create = async ({
   }
 };
 
-const updateById = async (
-  id,
-  { fullName, auth0id, emailAddress, bio, phoneNumber }
+const updateByAuthId = async (
+  auth0id,
+  { fullName, phoneNumber, emailAddress, country, state, city, bio }
 ) => {
   try {
     await getKnex()(tables.user)
       .update({
         fullName,
-        auth0id,
-        emailAddress,
-        bio,
-        image,
         phoneNumber,
+        emailAddress,
+        country,
+        state,
+        city,
+        bio,
       })
-      .where("auth0id", id);
-    return id;
+      .where("auth0id", auth0id);
+    return auth0id;
   } catch (error) {
     const logger = getLogger();
     logger.error("Error in updateById", {
@@ -88,6 +90,6 @@ module.exports = {
   findById,
   findByAuth0Id,
   create,
-  updateById,
+  updateByAuthId,
   deleteById,
 };
