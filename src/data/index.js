@@ -148,6 +148,7 @@ const tables = {
   gym: "gym",
   user: "user",
   gymRating: "gymRating",
+  userGym: "userGym",
 };
 
 module.exports = {
