@@ -38,7 +38,6 @@ getAllGyms.validationScheme = null;
 
 const createGym = async (ctx) => {
   let userId = 0;
-  console.log(ctx.request.body);
   try {
     const user = await userService.getByAuth0Id(ctx.state.user.sub);
     userId = user.id;
@@ -57,14 +56,14 @@ const createGym = async (ctx) => {
   ctx.status = 201;
 };
 createGym.validationScheme = {
-  // body: {
-  //   name: Joi.string().max(255),
-  //   owner: Joi.string().max(255),
-  //   emailAddress: Joi.string().max(255),
-  //   description: Joi.string().max(255),
-  //   address: Joi.string().max(255),
-  //   image: Joi.optional(),
-  // },
+  body: {
+    name: Joi.string().max(255),
+    owner: Joi.string().max(255),
+    emailAddress: Joi.string().max(255),
+    description: Joi.string().max(255),
+    address: Joi.string().max(255),
+    image: Joi.optional(),
+  },
 };
 
 const getGymById = async (ctx) => {
