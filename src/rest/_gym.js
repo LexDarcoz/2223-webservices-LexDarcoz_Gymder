@@ -38,7 +38,7 @@ getAllGyms.validationScheme = null;
 
 const createGym = async (ctx) => {
   let userId = 0;
-  console.log(ctx);
+
   try {
     const user = await userService.getByAuth0Id(ctx.state.user.sub);
     userId = user.id;
@@ -56,13 +56,14 @@ const createGym = async (ctx) => {
   ctx.status = 201;
 };
 createGym.validationScheme = {
-  // body: {
-  //   name: Joi.string().max(255),
-  //   owner: Joi.string().max(255),
-  //   emailAddress: Joi.string().max(255),
-  //   description: Joi.string().max(255),
-  //   image: Joi.optional(),
-  // },
+  body: {
+    name: Joi.string().max(255),
+    owner: Joi.string().max(255),
+    emailAddress: Joi.string().max(255),
+    description: Joi.string().max(255),
+    address: Joi.string().max(255),
+    image: Joi.optional(),
+  },
 };
 
 const getGymById = async (ctx) => {
@@ -74,28 +75,6 @@ getGymById.validationScheme = {
   },
 };
 
-const updateGym = async (ctx) => {
-  ctx.body = await gymService.updateById(ctx.params.id, ctx.request.body);
-};
-updateGym.validationScheme = {
-  params: {
-    id: Joi.number().integer().positive(),
-  },
-  body: {
-    name: Joi.string().max(255),
-    rating: Joi.number().min(1).max(5).integer(),
-  },
-};
-
-const deleteGym = async (ctx) => {
-  await gymService.deleteById(ctx.params.id);
-  ctx.status = 204;
-};
-deleteGym.validationScheme = {
-  params: {
-    id: Joi.number().integer().positive(),
-  },
-};
 module.exports = (app) => {
   const router = new Router({
     prefix: "/gym",
@@ -119,19 +98,6 @@ module.exports = (app) => {
 
     validate(getGymById.validationScheme),
     getGymById
-  );
-  router.put(
-    "/:id",
-
-    upload.single("image"),
-    validate(updateGym.validationScheme),
-    updateGym
-  );
-  router.delete(
-    "/:id",
-
-    validate(deleteGym.validationScheme),
-    deleteGym
   );
 
   app.use(router.routes()).use(router.allowedMethods());

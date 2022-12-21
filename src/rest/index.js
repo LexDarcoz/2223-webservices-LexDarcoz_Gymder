@@ -1,7 +1,7 @@
 const Router = require("@koa/router");
 const path = require("path");
 const serve = require("koa-static");
-const installRatingRouter = require("./_gymRating");
+
 const installHealthRouter = require("./_health");
 const installGymRouter = require("./_gym");
 const installUserRouter = require("./_user");
@@ -17,7 +17,6 @@ module.exports = (app) => {
   const router = new Router({
     prefix: "/api",
   });
-  installRatingRouter(router);
 
   installUserGymRouter(router);
 

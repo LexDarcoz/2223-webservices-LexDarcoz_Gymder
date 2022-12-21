@@ -35,15 +35,9 @@ const updateById = async (id, { name, description, owner, emailAddress }) => {
   return getById(id);
 };
 
-const deleteById = async (id) => {
-  debugLog(`Deleting gym with id ${id}`);
-  await gymRepository.deleteById(id);
-};
-
 module.exports = {
   getAll,
   getById,
   create,
   updateById,
-  deleteById,
 };

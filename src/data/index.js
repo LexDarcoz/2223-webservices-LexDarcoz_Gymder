@@ -147,7 +147,6 @@ function getKnex() {
 const tables = {
   gym: "gym",
   user: "user",
-  gymRating: "gymRating",
   userGym: "userGym",
 };
 
