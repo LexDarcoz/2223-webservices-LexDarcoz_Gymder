@@ -2,9 +2,9 @@ const Joi = require("joi");
 const Router = require("@koa/router");
 const multer = require("@koa/multer");
 const gymService = require("../service/gym");
-
+const userService = require("../service/user");
 const validate = require("./_validation.js");
-
+const { addUserInfo } = require("../core/auth");
 var imgconfig = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "./uploads");
@@ -38,6 +38,7 @@ getAllGyms.validationScheme = null;
 
 const createGym = async (ctx) => {
   let userId = 0;
+  console.log(ctx);
   try {
     const user = await userService.getByAuth0Id(ctx.state.user.sub);
     userId = user.id;
@@ -55,14 +56,13 @@ const createGym = async (ctx) => {
   ctx.status = 201;
 };
 createGym.validationScheme = {
-  body: {
-    name: Joi.string().max(255),
-    owner: Joi.string().max(255),
-    emailAddress: Joi.string().max(255),
-
-    description: Joi.string().max(255),
-    image: Joi.optional(),
-  },
+  // body: {
+  //   name: Joi.string().max(255),
+  //   owner: Joi.string().max(255),
+  //   emailAddress: Joi.string().max(255),
+  //   description: Joi.string().max(255),
+  //   image: Joi.optional(),
+  // },
 };
 
 const getGymById = async (ctx) => {
