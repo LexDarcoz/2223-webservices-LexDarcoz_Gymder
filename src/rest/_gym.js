@@ -50,7 +50,7 @@ const createGym = async (ctx) => {
   }
 
   const filename = ctx.request.file ? ctx.request.file.filename : null;
-  console.log(ctx.request.file);
+
   const newGym = await gymService.create({ ...ctx.request.body }, filename);
   ctx.body = newGym;
   ctx.status = 201;

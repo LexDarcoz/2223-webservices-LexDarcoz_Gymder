@@ -70,7 +70,6 @@ function hasPermission(permission) {
   return async (ctx, next) => {
     const logger = getLogger();
     const user = ctx.state.user;
-    console.log(ctx.state);
     logger.debug(`hasPermission: ${JSON.stringify(user)}`);
 
     // simply having a user object means they are logged in
