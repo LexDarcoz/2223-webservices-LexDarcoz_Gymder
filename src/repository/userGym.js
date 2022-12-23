@@ -51,6 +51,9 @@ const deleteById = async (id) => {
     throw error;
   }
 };
+const findById = (id) => {
+  return getKnex()(tables.userGym).where("id", id).first();
+};
 const findCount = async () => {
   const [count] = await getKnex()(tables.userGym).count();
   return count["count(*)"];
@@ -61,4 +64,5 @@ module.exports = {
   create,
   updateById,
   deleteById,
+  findById,
 };

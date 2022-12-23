@@ -44,14 +44,6 @@ const createUserGym = async (ctx) => {
 };
 createUserGym.validationScheme = {};
 
-const updateUserGym = async (ctx) => {
-  ctx.body = await userGymService.updateByAuth0Id(
-    ctx.params.id,
-    ctx.request.body
-  );
-};
-updateUserGym.validationScheme = {};
-
 const deleteGym = async (ctx) => {
   await userGymService.deleteById(ctx.params.id);
   ctx.status = 204;

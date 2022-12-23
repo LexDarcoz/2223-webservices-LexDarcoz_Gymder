@@ -13,9 +13,10 @@ const debugLog = (message, meta = {}) => {
  * @param {object} user - The user's data.
  * @param {string} user.name - The user's name.
  */
-const create = (userId, gymId) => {
+const create = async (userId, gymId) => {
   debugLog("Creating a new user", gymId, userId);
-  return userGymRepository.create(userId, gymId);
+  const id = await userGymRepository.create(userId, gymId);
+  return await getById(id);
 };
 
 /**
