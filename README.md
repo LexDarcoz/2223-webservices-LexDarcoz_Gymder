@@ -15,17 +15,13 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 - ...
 
-> Vul eventueel aan
-
 ## Opstarten
-
-> Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
 
 Om alle dependencies te installeren run je eerst npm install, hierna kan je npm start uitvoeren om de development environment op te starten.
 .ENV file moet volgende informatie bevatten:
 
+```bash
 NODE_ENV = "development"
-
 DATABASE_HOST = "host"
 DATABASE_PORT = "poort"
 DATABASE_USERNAME = "username"
@@ -38,17 +34,19 @@ AUTH_ISSUER=domain
 AUTH_USER_INFO=domain/userinfo
 
 PORT="9000"
+```
 
 ## Testen
 
-> Schrijf hier hoe we de testen uitvoeren (.env bestanden aanmaken, commando's om uit te voeren...)
-> env file:
-> NODE_ENV = "test"
-> DATABASE_HOST = "host"
-> DATABASE_PORT = "poort"
-> DATABASE_USERNAME = "username"
-> DATABASE_PASSWORD = "password"
-> DATABASE_NAME = "name"
+env file:
+
+```bash
+NODE_ENV = "test"
+DATABASE_HOST = "host"
+DATABASE_PORT = "poort"
+DATABASE_USERNAME = "username"
+DATABASE_PASSWORD = "password"
+DATABASE_NAME = "name"
 
 AUTH_TEST_USER_USER_ID=userid
 AUTH_TEST_USER_USERNAME=username
@@ -63,6 +61,7 @@ AUTH_ISSUER=domain
 AUTH_USER_INFO=domain/userinfo
 
 PORT="9000"
+```
 
 testen uitvoeren:
 
